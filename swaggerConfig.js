@@ -1,4 +1,7 @@
-import swaggerJsDoc from "swagger-jsdoc"
+import swaggerJsDoc from "swagger-jsdoc";
+import dotenv from "dotenv";
+
+dotenv.config(); // Load .env if not already loaded in server.js
 
 const swaggerOptions = {
   definition: {
@@ -9,20 +12,18 @@ const swaggerOptions = {
       description: "API documentation for the Chat App",
       contact: {
         name: "Your Name",
-        url: "http://localhost:5000",
+        url: process.env.SWAGGER_SERVER_URL || "http://localhost:5000",
         email: "your-email@example.com",
       },
     },
     servers: [
       {
-        url: "http://localhost:5000",
+        url: process.env.SWAGGER_SERVER_URL || "http://localhost:5000",
       },
     ],
   },
-  apis: ["./routes/*.js"], // Path to the routes files for automatic documentation generation
-}
+  apis: ["./routes/*.js"],
+};
 
-const swaggerDocs = swaggerJsDoc(swaggerOptions)
-
-export default swaggerDocs
-
+const swaggerDocs = swaggerJsDoc(swaggerOptions);
+export default swaggerDocs;
